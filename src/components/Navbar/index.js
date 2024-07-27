@@ -37,9 +37,9 @@ export default function Navbar() {
               </Link>
             </div>
             <div class="d-grid">
-              <a class="btn-navy" href="signin.html">
-                Sign In
-              </a>
+              <Link to={"/signin"} className="btn-navy">
+                Signin
+              </Link>
             </div>
           </div>
         </div>

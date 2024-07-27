@@ -1,5 +1,6 @@
 import React from "react";
 import Story from "../../assets/images/story.png";
+import { Link } from "react-router-dom";
 
 export default function index() {
   return (
@@ -24,9 +25,7 @@ export default function index() {
               <br class="d-none d-lg-block" />
               mendapatkan bantuan selama pandemic.
             </p>
-            <a href="#" class="btn-navy">
-              Read
-            </a>
+            <Link className="btn-navy">Read</Link>
           </div>
         </div>
       </section>
