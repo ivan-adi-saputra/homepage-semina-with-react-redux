@@ -1,8 +1,16 @@
 import React from "react";
 import Logo from "../../assets/images/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SButton from "../Button";
 
 export default function Navbar() {
+  const token = localStorage.getItem("auth");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    navigate("/signin");
+  };
   return (
     <>
       <nav class="container navbar navbar-expand-lg navbar-dark">
@@ -37,9 +45,17 @@ export default function Navbar() {
               </Link>
             </div>
             <div class="d-grid">
-              <Link to={"/signin"} className="btn-navy">
-                Signin
-              </Link>
+              {token ? (
+                <SButton
+                  children="Logout"
+                  onClick={handleLogout}
+                  className="btn-navy"
+                />
+              ) : (
+                <Link to={"/signin"} className="btn-navy">
+                  Signin
+                </Link>
+              )}
             </div>
           </div>
         </div>

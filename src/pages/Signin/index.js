@@ -4,8 +4,11 @@ import { Container, Alert } from "react-bootstrap";
 import FormSignin from "./form";
 import { postData } from "../../utils/fetchData";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/auth/actions";
 
 export default function SigninPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setform] = useState({
     email: "",
@@ -25,11 +28,11 @@ export default function SigninPage() {
   }
 
   const handleSubmit = async () => {
+    setLoading(true);
     const res = await postData("auth/signin", form);
     if (res?.data?.data) {
-      setLoading(true);
-
       navigate("/");
+      dispatch(userLogin(res.data.data.token));
       setLoading(false);
     } else {
       setLoading(false);
