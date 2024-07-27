@@ -2,13 +2,16 @@ import React from "react";
 import Logo from "../../assets/images/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import SButton from "../Button";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "../../redux/auth/actions";
 
 export default function Navbar() {
-  const token = localStorage.getItem("auth");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    localStorage.removeItem("auth");
+    dispatch(userLogout());
     navigate("/signin");
   };
   return (
