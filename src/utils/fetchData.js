@@ -21,3 +21,13 @@ export async function postData(url, payload) {
     return handleError(error);
   }
 }
+
+export async function putData(url, payload) {
+  try {
+    const res = await axios.put(`${config.url_host}/${url}`, payload);
+
+    return res;
+  } catch (error) {
+    return handleError(error);
+  }
+}
