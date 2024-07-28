@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { config } from "../../config";
 import Logo from "../../assets/icons/ic-check.svg";
@@ -131,9 +131,9 @@ export default function EventDetailPage() {
               <img src={LogoCalender} />{" "}
               {moment(form.date).format("DD MMMM YYYY")}
             </div>
-            <a href="checkout.html" class="btn-green">
+            <Link to={`/payment/${id}`} className="btn-green">
               Join Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>

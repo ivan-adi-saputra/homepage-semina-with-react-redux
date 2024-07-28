@@ -12,9 +12,13 @@ export async function getData(url, params) {
   }
 }
 
-export async function postData(url, payload) {
+export async function postData(url, payload, token) {
   try {
-    const res = await axios.post(`${config.url_host}/${url}`, payload);
+    const res = await axios.post(`${config.url_host}/${url}`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return res;
   } catch (error) {

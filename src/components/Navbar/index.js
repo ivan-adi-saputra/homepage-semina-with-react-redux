@@ -34,7 +34,7 @@ export default function Navbar() {
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mx-auto my-3 my-lg-0">
-              <Link className="nav-link active" to={"/"}>
+              <Link className="nav-link active" to={"/homepage"}>
                 Home
               </Link>
               <Link className="nav-link " to={"/about"}>
