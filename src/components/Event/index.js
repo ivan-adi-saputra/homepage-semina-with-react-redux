@@ -4,11 +4,12 @@ import { fetchingEvent } from "../../redux/event/actions";
 import { Spinner } from "react-bootstrap";
 import moment from "moment";
 import { config } from "../../config";
+import { Link } from "react-router-dom";
 
 export default function Event() {
   const dispatch = useDispatch();
   const event = useSelector((state) => state.event);
-  console.log(event);
+
   useEffect(() => {
     dispatch(fetchingEvent());
   }, [dispatch]);
@@ -44,7 +45,10 @@ export default function Event() {
                         <div class="description">{`${data.venueName}, ${moment(
                           data.date
                         ).format("DD MMMM YYYY")}`}</div>
-                        <a href="details.html" class="stretched-link"></a>
+                        <Link
+                          to={`/event-detail/${data._id}`}
+                          class="stretched-link"
+                        />
                       </div>
                     </div>
                   </div>
