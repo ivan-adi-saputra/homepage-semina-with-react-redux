@@ -1,0 +1,3 @@
+export const START_FETCHING_EVENT = "redux/event/START_FETCHING_EVENT";
+export const SUCCESS_FETCHING_EVENT = "redux/event/SUCCESS_FETCHING_EVENT";
+export const ERROR_FETCHING_EVENT = "redux/event/ERROR_FETCHING_EVENT";

@@ -1,10 +1,18 @@
-import React from "react";
-import Card1 from "../../assets/images/card-1.png";
-import Card2 from "../../assets/images/card-2.png";
-import Card3 from "../../assets/images/card-3.png";
-import Card4 from "../../assets/images/card-4.png";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchingEvent } from "../../redux/event/actions";
+import { Spinner } from "react-bootstrap";
+import moment from "moment";
+import { config } from "../../config";
 
 export default function Event() {
+  const dispatch = useDispatch();
+  const event = useSelector((state) => state.event);
+  console.log(event);
+  useEffect(() => {
+    dispatch(fetchingEvent());
+  }, [dispatch]);
+
   return (
     <>
       <section class="grow-today">
@@ -14,60 +22,37 @@ export default function Event() {
           </div>
           <div class="title">Featured Events</div>
           <div class="mt-5 row gap">
-            <div class="col-lg-3 col-md-6 col-12">
-              <div class="card-grow h-100">
-                <span class="badge-pricing">$229</span>
-                <img src={Card1} alt="semina" />
-                <div class="card-content">
-                  <div class="card-title">
-                    Learn Jira for Sprint Design Venture
+            {event.status === "process" ? (
+              <div class="col-12 text-center">
+                <Spinner animation="grow" variant="dark" />
+              </div>
+            ) : event.data.length ? (
+              event.data.map((data, index) => {
+                return (
+                  <div class="col-lg-3 col-md-6 col-12" key={index}>
+                    <div class="card-grow h-100">
+                      <span class="badge-pricing">
+                        {`$${data.tickets[0].price}` || "Free"}
+                      </span>
+                      <img
+                        src={`${config.url_image}/${data.image.name}`}
+                        alt="semina"
+                      />
+                      <div class="card-content">
+                        <div class="card-title">{data.title}</div>
+                        <div class="card-subtitle">{data.category.name}</div>
+                        <div class="description">{`${data.venueName}, ${moment(
+                          data.date
+                        ).format("DD MMMM YYYY")}`}</div>
+                        <a href="details.html" class="stretched-link"></a>
+                      </div>
+                    </div>
                   </div>
-                  <div class="card-subtitle">Product Design</div>
-                  <div class="description">Bandung, 22 Jan 2022</div>
-                  <a href="details.html" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-              <div class="card-grow h-100">
-                <span class="badge-pricing">FREE</span>
-                <img src={Card2} alt="semina" />
-                <div class="card-content">
-                  <div class="card-title">Team Management for Long Term</div>
-                  <div class="card-subtitle">Product Design</div>
-                  <div class="description">Jakarta, 11 Aug 2022</div>
-                  <a href="details.html" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-              <div class="card-grow h-100">
-                <span class="badge-pricing">$80</span>
-                <img src={Card3} alt="semina" />
-                <div class="card-content">
-                  <div class="card-title">
-                    Set Marketing Target For SaaS Bii
-                  </div>
-                  <div class="card-subtitle">Product Design</div>
-                  <div class="description">Bandung, 22 Jan 2022</div>
-                  <a href="details.html" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-              <div class="card-grow h-100">
-                <span class="badge-pricing">$90</span>
-                <img src={Card4} alt="semina" />
-                <div class="card-content">
-                  <div class="card-title">
-                    Google Adsense from Zero to Big Bucks
-                  </div>
-                  <div class="card-subtitle">Product Design</div>
-                  <div class="description">Jakarta, 11 Aug 2022</div>
-                  <a href="details.html" class="stretched-link"></a>
-                </div>
-              </div>
-            </div>
+                );
+              })
+            ) : (
+              <div class="col-12 text-center">Tidak ada event</div>
+            )}
           </div>
         </div>
       </section>
